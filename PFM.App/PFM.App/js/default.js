@@ -8,6 +8,7 @@
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;
+    var resum = Windows.UI.WebUI.WebUIApplication;
 
     app.addEventListener("activated", function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
@@ -40,6 +41,11 @@
         // suspended, call args.setPromise().
         app.sessionState.history = nav.history;
     };
+
+    //Resume the application in here
+    resum.addEventListener("resuming", function() {
+
+    });
 
     app.start();
 })();
