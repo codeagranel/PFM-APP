@@ -4,6 +4,32 @@
     "use strict";
 
     WinJS.UI.Pages.define("/pages/Login.html", {
+        
+        onBeforeNavigate: function(e) {
+            var txtLogin = document.getElementById("txtLogin");
+            var txtPassword = document.getElementById("txtPassword");
+            if (txtLogin) {
+                if (txtLogin.value.length == 0) {
+                    e.preventDefault();
+                    var msg = "Digite seu login";
+                    
+                    WinJS.Promise.timeout(1500).done(function () {
+                        //msg.innerText = "";
+                    });
+                }
+            }
+            if (txtPassword) {
+                if (txtPassword.value.length == 0) {
+                    e.preventDefault();
+                    msg = "Digite sua senha";
+                    
+                    WinJS.Promise.timeout(1500).done(function () {
+                        //msg.innerText = "";
+                    });
+                }
+            }
+        },
+            
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
