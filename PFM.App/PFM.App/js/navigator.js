@@ -3,6 +3,29 @@
 
     var appView = Windows.UI.ViewManagement.ApplicationView;
     var nav = WinJS.Navigation;
+    var utils = WinJS.Utilities;
+    
+    WinJS.Namespace.defineWithParent(WinJS.Navigation, "Utilities", {
+        enableNavigationElements: function (containerSelector) {
+
+            if (containerSelector) {
+                containerSelector += " ";
+            } else {
+                containerSelector = "";
+            }
+
+            // Handle navigating to pages from any element that has 
+            // the data-page attribute. Note the value must end with '.html'.
+            WinJS.Utilities.query(containerSelector + "[data-page$='.html']").listen("click", function (e) {
+                if (this.tagName.toLowerCase() == "a") {
+                    e.preventDefault();
+                }
+                var fileName = this.getAttribute("data-page");
+                var name = fileName.substring(0, fileName.lastIndexOf("."));
+                WinJS.Navigation.navigate("/pages/" + name + "/" + fileName);
+            });
+        }
+    });
 
     WinJS.Namespace.define("Application", {
         PageControlNavigator: WinJS.Class.define(
@@ -22,6 +45,8 @@
                 document.body.onmspointerup = this._mspointerupHandler.bind(this);
 
                 Application.navigator = this;
+                
+                WinJS.Navigation.Utilities.enableNavigationElements();
             }, {
                 home: "",
                 /// <field domElement="true" />

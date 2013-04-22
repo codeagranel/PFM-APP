@@ -3,9 +3,10 @@
 (function () {
     "use strict";
 
-    WinJS.UI.Pages.define("/pages/Login.html", {
+    WinJS.UI.Pages.define("/pages/Login/Login.html", {
         
-        onBeforeNavigate: function(e) {
+        onBeforeNavigate: function (e) {
+            
             var txtLogin = document.getElementById("txtLogin");
             var txtPassword = document.getElementById("txtPassword");
             if (txtLogin) {
@@ -29,11 +30,16 @@
                 }
             }
         },
+        
+        init: function() {
+            WinJS.Navigation.addEventListener("beforenavigate", this.onBeforeNavigate.bind(this));
+        },
             
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
             // TODO: Initialize the page here.
+            WinJS.Navigation.Utilities.enableNavigationElements(".homepage");
         },
 
         unload: function () {
